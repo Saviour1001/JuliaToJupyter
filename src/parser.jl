@@ -1,4 +1,4 @@
 function parser(julia,jupyter)
-    f = open("$(julia)","r")
+    f = open("../test/Test_1.jl","r")
 
 end
