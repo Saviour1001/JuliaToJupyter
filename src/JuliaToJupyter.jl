@@ -16,8 +16,4 @@ while !eof(f)
 
 end
 
-
-
-
-
 end
