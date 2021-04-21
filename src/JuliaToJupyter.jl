@@ -1,42 +1,20 @@
 module JuliaToJupyter
 
 # Write your package code here.
+using JSON
 f = open("test\\Test_1.jl","r")
-line = 0
 file = open("writing files\\Test_1.ipynb","w")
-write(file,"{ \"cells\":[ ")
 while !eof(f)
-    line+=1
     s = readline(f)
     if (s[1]=='#')
-        md = open("templates\\markdown_cell.json","r")
-        println("Its a comment!!")
-        println("Line Number: $line")
-        while !eof(md)
-            mdr = readline(md)
-            write(file,"$mdr")
-        end
-        write(file,",")
-        close(md)
+        println("Its a comment")
+        line = Dict("cell_type"=>"markdown","metadata"=>"{}","source"=>"[$s]")
+        json_object = json(line)
+        write(file,json_object)
     else
-        cc = open("templates\\code_cell.json","r")
         println("Its a code line")
-        println("Line Number: $line")
-        while !eof(cc)
-            ccr = readline(cc)
-            write(file,"$ccr")
-        end
-        write(file,",")
-        close(cc)
     end
-
 end
-write(file,"],")
-template = open("templates\\metadata.json","r")
-while !eof(template)
-    metaR = readline(template)
-    write(file,"$metaR")
-end
-write(file,"}")
+close(f)
 close(file)
 end
