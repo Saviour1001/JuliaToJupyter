@@ -2,7 +2,6 @@ module JuliaToJupyter
 
 # Write your package code here.
 f = open("test\\Test_1.jl","r")
-template = open("templates\\metadata.json","r")
 line = 0
 while !eof(f)
     line+=1
@@ -20,7 +19,7 @@ while !eof(f)
         end
         close(md)
     else
-        cc = open("templates\\markdown_cell.json","r")
+        cc = open("templates\\code_cell.json","r")
         println("Its a code line")
         println("Line Number: $line")
         while !eof(cc)
@@ -29,6 +28,7 @@ while !eof(f)
         end
         close(cc)
     end
+    template = open("templates\\metadata.json","r")
     while !eof(template)
         metaR = readline(template)
         write(file,"$metaR")
