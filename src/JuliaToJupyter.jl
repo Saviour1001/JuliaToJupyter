@@ -5,7 +5,7 @@ using JSON
 f = open("test\\Test_1.jl","r")
 file = open("writing files\\Test_1.ipynb","w")
 start = "{ \n \"cells\": [\n"
-finish = "],"
+finish = "],\n"
 write(file,start)
 while !eof(f)
     s = readline(f)
@@ -18,6 +18,7 @@ while !eof(f)
             )
         json_object = json(line,4)
         write(file,json_object)
+        write(file,",\n")
     else
         println("Its a code line")
         line = Dict(
@@ -29,6 +30,7 @@ while !eof(f)
         )
         json_object = json(line,2)
         write(file,json_object)
+        write(file,",\n")
     end
 end
 write(file,finish)
@@ -36,6 +38,7 @@ metadata_template = open("templates\\metadata.json")
 while !eof(metadata_template)
     s = readline(metadata_template)
     write(file,s)
+    write(file,"\n")
 end
 write(file,"}")
 close(f)
